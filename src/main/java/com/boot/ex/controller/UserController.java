@@ -13,7 +13,7 @@ import com.boot.ex.domain.User.RequestDTO;
 import com.boot.ex.domain.User.ResponseDTO;
 import com.boot.ex.domain.User.ResponseDTO2;
 import com.boot.ex.domain.User.ResponseDTO3;
-import com.boot.ex.exception.ResourceNotFoundException;
+import com.boot.ex.exception.CustomException.ResourceNotFoundException;
 import com.boot.ex.service.UserService;
 
 @RestController

@@ -1,4 +1,4 @@
-package com.boot.ex.response;
+package com.boot.ex.exception;
 
 public class StatusCode {
 	

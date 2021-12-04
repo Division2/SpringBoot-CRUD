@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.boot.ex.response.StatusCode;
+import com.boot.ex.exception.CustomException.AleadyExistException;
+import com.boot.ex.exception.CustomException.BadRequestException;
+import com.boot.ex.exception.CustomException.ResourceNotFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {

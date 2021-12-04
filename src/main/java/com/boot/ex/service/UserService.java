@@ -14,11 +14,10 @@ import com.boot.ex.domain.User.ResponseDTO;
 import com.boot.ex.domain.User.ResponseDTO2;
 import com.boot.ex.domain.User.ResponseDTO3;
 import com.boot.ex.domain.User.UserEntity;
-import com.boot.ex.exception.AleadyExistException;
-import com.boot.ex.exception.BadRequestException;
-import com.boot.ex.exception.ResourceNotFoundException;
+import com.boot.ex.exception.CustomException;
+import com.boot.ex.exception.StatusCode;
+import com.boot.ex.exception.CustomException.ResourceNotFoundException;
 import com.boot.ex.repository.UserRepository;
-import com.boot.ex.response.StatusCode;
 
 @Service
 public class UserService {
@@ -48,10 +47,10 @@ public class UserService {
 		Optional<UserEntity> user =  repository.findByUserid(dto.getUserid());
 		
 		if (dto.getUserid() == null || dto.getPassword() == null) {
-			throw new BadRequestException("잘못된 요청 파라미터입니다.");
+			throw new CustomException.BadRequestException("잘못된 요청 파라미터입니다.");
 		}
 		if (user.isPresent()) {
-			throw new AleadyExistException("이미 등록된 사용자입니다.");
+			throw new CustomException.AleadyExistException("이미 등록된 사용자입니다.");
 		}
 		
 		repository.save(dto.toEntity());
