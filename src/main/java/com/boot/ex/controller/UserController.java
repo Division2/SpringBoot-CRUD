@@ -43,14 +43,16 @@ public class UserController {
 	}
 
 	//회원 정보 수정
-	@PatchMapping("/users")
-	public ResponseDTO2 update(RequestDTO dto) throws ResourceNotFoundException {
+	@PatchMapping("/users{UserID}")
+	public ResponseDTO2 update(@PathVariable(value = "UserID") String userid,RequestDTO dto) throws ResourceNotFoundException {
+		dto.setUserid(userid);
 		return service.updateUser(dto);
 	}
 	
 	//회원 삭제
-	@DeleteMapping("/users")
-	public ResponseDTO2 delete(RequestDTO dto) throws ResourceNotFoundException {
+	@DeleteMapping("/users{UserID}")
+	public ResponseDTO2 delete(@PathVariable(value = "UserID") String userid, RequestDTO dto) throws ResourceNotFoundException {
+		dto.setUserid(userid);
 		return service.deleteUser(dto);
 	}
 }
