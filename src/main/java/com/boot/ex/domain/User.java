@@ -1,5 +1,6 @@
 package com.boot.ex.domain;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -8,18 +9,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 public class User {
 	
 	@Entity
 	@Getter
-	@NoArgsConstructor
+	@NoArgsConstructor(access = AccessLevel.PROTECTED)
 	@Table(name = "account")
 	public static class UserEntity {
 		@Id
@@ -53,19 +51,18 @@ public class User {
 	@NoArgsConstructor
 	public static class RequestDTO {
 		private Long aid;
+
+		@NotBlank
 		private String userid;
+
+		@NotBlank
 		private String password;
+
+		@NotBlank
 		private String name;
+
+		@NotBlank
 		private String phone;
-		
-		@Builder
-		public RequestDTO(UserEntity entity) {
-			this.aid = entity.aid;
-			this.userid = entity.userid;
-			this.password = entity.password;
-			this.name = entity.name;
-			this.phone = entity.phone;
-		}
 		
 		public UserEntity toEntity() {
 			return UserEntity.builder()
