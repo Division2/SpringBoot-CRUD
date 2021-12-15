@@ -1,6 +1,5 @@
-package com.boot.ex.domain;
+package com.boot.ex.models;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.Column;

@@ -1,7 +1,6 @@
-package com.boot.ex.controller;
+package com.boot.ex.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -10,18 +9,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.boot.ex.domain.User.RequestDTO;
-import com.boot.ex.domain.User.ResponseDTO;
-import com.boot.ex.domain.User.ResponseDTO2;
-import com.boot.ex.domain.User.ResponseDTO3;
+import com.boot.ex.models.User.RequestDTO;
+import com.boot.ex.models.User.ResponseDTO;
+import com.boot.ex.models.User.ResponseDTO2;
+import com.boot.ex.models.User.ResponseDTO3;
 import com.boot.ex.exception.CustomException.ResourceNotFoundException;
-import com.boot.ex.service.UserService;
+import com.boot.ex.services.UserService;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("api/v1")
 public class UserController {
 
-	@Autowired private UserService service;
+	private final UserService service;
 	
 	//전체 회원 조회
 	@GetMapping("/users")
@@ -32,7 +32,7 @@ public class UserController {
 	
 	//회원 ID 조회
 	@GetMapping("/users/{UserID}")
-	public ResponseDTO select(@Validated(RequestDTO.class) @PathVariable(value = "UserID") String userid) throws ResourceNotFoundException {
+	public ResponseDTO select(@PathVariable(value = "UserID") String userid) throws ResourceNotFoundException {
 		
 		return service.findByUserID(userid);
 	}
