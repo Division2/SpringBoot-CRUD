@@ -1,7 +1,9 @@
 package com.boot.ex.models.data;
 
 import lombok.Builder;
+import lombok.Getter;
 
+@Getter
 public class UserData {
 
     private Long aid;

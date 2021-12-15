@@ -29,10 +29,10 @@ public abstract class BaseEntity {
     @Column(name = "aid", updatable = false, nullable = false, columnDefinition = "INT(10)")
     private Long aid;
 
-    @Column(name = "createAt", updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "create_at", updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date createAt;
 
-    @Column(name = "updateAt",insertable = false, columnDefinition = "TIMESTAMP DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP")
+    @Column(name = "update_at",insertable = false, columnDefinition = "TIMESTAMP DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP")
     private Date updateAt;
 
     @Column(nullable = false, columnDefinition = "TINYINT(1) DEFAULT 0")
