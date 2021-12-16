@@ -27,7 +27,7 @@ public class UserService {
 	}
 
 	@Transactional
-	public User Insert(UserRequest request) throws Exception {
+	public User insert(UserRequest request) throws Exception {
 
 		Optional<User> user = repository.findByUserid(request.getUserid());
 

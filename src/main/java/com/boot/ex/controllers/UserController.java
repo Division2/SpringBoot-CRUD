@@ -30,10 +30,20 @@ public class UserController {
 
 	//회원 가입
 	@PostMapping("/users")
-	public ResponseEntity<?> Insert(@Valid @RequestBody UserRequest request) throws Exception {
+	public ResponseEntity<?> insert(@Valid @RequestBody UserRequest request) throws Exception {
 
-		UserData user = service.Insert(request).getData();
+		UserData user = service.insert(request).getData();
 
 		return ResponseEntity.ok().body(new UserResponse(StatusCode.OK, "회원 가입", user));
+	}
+
+	//회원 정보 수정
+	@PatchMapping("/users/{UserID}")
+	public ResponseEntity<?> update(@Valid @RequestBody UserRequest request) throws Exception {
+
+		//임시
+		UserData user = service.insert(request).getData();
+
+		return ResponseEntity.ok().body(new UserResponse(StatusCode.OK, "회원 정보 수정", user));
 	}
 }
