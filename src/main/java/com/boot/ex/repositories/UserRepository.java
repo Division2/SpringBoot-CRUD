@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-	
+
+	//회원 ID 조회
 	Optional<User> findByUserid(String userid);
 }

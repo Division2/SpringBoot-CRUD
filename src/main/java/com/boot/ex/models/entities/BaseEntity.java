@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -23,6 +24,7 @@ public abstract class BaseEntity {
             updatable : Update 시점에서 적용/미적용 설정
             nullable : 컬럼 nullable 설정
             columnDefinition : 컬럼의 기본값 지정
+        @NotNull - nullable과 DDL 시 테이블에 not null을 명시해주지만 데이터에 null이 들어오지 못 하도록 유효성 검사까지 해준다.
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,10 +34,11 @@ public abstract class BaseEntity {
     @Column(name = "create_at", updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date createAt;
 
-    @Column(name = "update_at",insertable = false, columnDefinition = "TIMESTAMP DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP")
+    @Column(name = "update_at", insertable = false, columnDefinition = "TIMESTAMP DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP")
     private Date updateAt;
 
-    @Column(nullable = false, columnDefinition = "TINYINT(1) DEFAULT 0")
+    @NotNull
+    @Column(columnDefinition = "TINYINT(1) DEFAULT 0")
     private boolean deleted;
 
     //Insert 시점에서 같이 실행할 메소드(PrePersist)
