@@ -40,9 +40,9 @@ public class User extends BaseEntity {
         this.phone = phone;
     }
 
-    //응답 객체 get
+    //Entity -> DTO Class
     @Override
-    public UserData getObject() {
+    public UserData getData() {
         return UserData.builder()
                 .aid(getAid())
                 .userid(getUserid())

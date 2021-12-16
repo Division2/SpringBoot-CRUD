@@ -51,5 +51,5 @@ public abstract class BaseEntity {
     }
 
     //객체 얻어올 추상메소드
-    public abstract Object getObject();
+    public abstract Object getData();
 }

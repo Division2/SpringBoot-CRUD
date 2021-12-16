@@ -1,5 +1,6 @@
 package com.boot.ex.controllers;
 
+import com.boot.ex.exception.ResourceNotFoundException;
 import com.boot.ex.exception.StatusCode;
 import com.boot.ex.models.data.UserData;
 import com.boot.ex.models.responses.ErrorResponse;
@@ -26,13 +27,8 @@ public class UserController {
 	private final UserService service;
 
 	@GetMapping("/users/{UserID}")
-	public ResponseEntity<?> select(@PathVariable("UserID") String userid) {
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		UserData user = service.findByUserID(userid);
+	public ResponseEntity<?> select(@PathVariable("UserID") String userid) throws ResourceNotFoundException {
 
-		if (user == null) {
-			return ResponseEntity.status(HttpStatus.OK).body(new ErrorResponse(StatusCode.INTERNAL_SERVER_ERROR, "조회 실패", format.format(new Date())));
-		}
-		return ResponseEntity.ok().body(new UserResponse(StatusCode.OK, "회원 정보 조회", user));
+		return ResponseEntity.ok().body(new UserResponse(StatusCode.OK, "회원 정보 조회", service.findByUserID(userid)));
 	}
 }
