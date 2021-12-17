@@ -40,12 +40,19 @@ public class UserService {
 	}
 
 	@Transactional
-	public UserResponseDTO update(Long id, UserRequestDTO request) throws Exception {
+	public UserResponseDTO update(UserRequestDTO request) throws Exception {
 
-//		Optional<User> user = repository.findByUserid(request.getUserid());
-		Optional<User> user = repository.findById(id);
+		Optional<User> user = repository.findByUserid(request.getUserid());
+
 		if (user.isPresent()) {
-			return save(request).getData();
+			User result = repository.save(User.builder()
+					.aid(user.get().getAid())
+					.userid(request.getUserid())
+					.password(passwordEncoder.encode(request.getPassword()))
+					.name(request.getName())
+					.phone(request.getPhone())
+					.build());
+			return result.getData();
 		}
 		else {
 			throw new ResourceNotFoundException("요청한 리소스를 찾을 수 없습니다.");
@@ -53,8 +60,14 @@ public class UserService {
 	}
 
 	@Transactional
-	public boolean delete(String userid) throws Exception {
-		return true;
+	public UserResponseDTO delete(String userid) throws Exception {
+		Optional<User> user = repository.findByUserid(userid);
+
+		if (user.isPresent()) {
+			User user2 = user.get();
+			user2.setDeleted(true);
+		}
+		return user.get().getData();
 	}
 
 	private User save(UserRequestDTO request) {

@@ -6,9 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Getter
 //생성자 접근 제한을 Protected 레벨로 설정
@@ -19,6 +17,11 @@ import javax.persistence.Table;
 @Table(name = "account")
 //Object Mapping 자동화를 위해 Serializable implements
 public class User extends BaseEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "aid", updatable = false, nullable = false, columnDefinition = "INT(10)")
+    private Long aid;
 
     @Column(name = "userid", unique = true, nullable = false, length = 50)
     private String userid;
@@ -33,7 +36,8 @@ public class User extends BaseEntity {
     private String phone;
 
     @Builder
-    public User(String userid, String password, String name, String phone) {
+    public User(Long aid, String userid, String password, String name, String phone) {
+        this.aid = aid;
         this.userid = userid;
         this.password = password;
         this.name = name;

@@ -26,10 +26,6 @@ public abstract class BaseEntity {
             columnDefinition : 컬럼의 기본값 지정
         @NotNull - nullable과 DDL 시 테이블에 not null을 명시해주지만 데이터에 null이 들어오지 못 하도록 유효성 검사까지 해준다.
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "aid", updatable = false, nullable = false, columnDefinition = "INT(10)")
-    private Long aid;
 
     @Column(name = "create_at", updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date createAt;

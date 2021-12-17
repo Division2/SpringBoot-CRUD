@@ -39,9 +39,10 @@ public class UserController {
 
 	//회원 정보 수정
 	@PatchMapping("/users/{UserID}")
-	public ResponseEntity<?> update(@PathVariable("UserID") Long userid, final UserRequestDTO request) throws Exception {
+	public ResponseEntity<?> update(@PathVariable("UserID") String userid, final UserRequestDTO request) throws Exception {
 
-		UserResponseDTO user = service.update(userid, request);
+		request.setUserid(userid);
+		UserResponseDTO user = service.update(request);
 
 		return ResponseEntity.ok().body(new UserResponse(StatusCode.OK, "회원 정보 수정", user));
 	}
@@ -50,8 +51,8 @@ public class UserController {
 	@DeleteMapping("/users/{UserID}")
 	public ResponseEntity<?> delete(@PathVariable("UserID") String userid) throws Exception {
 
-		boolean user = service.delete(userid);
+		UserResponseDTO user = service.delete(userid);
 
-		return ResponseEntity.ok().build();
+		return ResponseEntity.ok().body(new UserResponse(StatusCode.OK, "회원 삭제", user));
 	}
 }
