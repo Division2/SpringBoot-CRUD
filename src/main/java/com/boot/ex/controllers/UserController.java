@@ -1,8 +1,8 @@
 package com.boot.ex.controllers;
 
 import com.boot.ex.exception.StatusCode;
-import com.boot.ex.models.data.UserData;
-import com.boot.ex.models.requests.UserRequest;
+import com.boot.ex.models.dto.UserResponseDTO;
+import com.boot.ex.models.dto.UserRequestDTO;
 import com.boot.ex.models.responses.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,27 +23,35 @@ public class UserController {
 	@GetMapping("/users/{UserID}")
 	public ResponseEntity<?> select(@PathVariable("UserID") String userid) throws Exception {
 
-		UserData user = service.findByUserID(userid);
+		UserResponseDTO user = service.findByUserID(userid);
 
 		return ResponseEntity.ok().body(new UserResponse(StatusCode.OK, "회원 정보 조회", user));
 	}
 
 	//회원 가입
 	@PostMapping("/users")
-	public ResponseEntity<?> insert(@Valid @RequestBody UserRequest request) throws Exception {
+	public ResponseEntity<?> insert(@Valid @RequestBody final UserRequestDTO request) throws Exception {
 
-		UserData user = service.insert(request).getData();
+		UserResponseDTO user = service.register(request);
 
 		return ResponseEntity.ok().body(new UserResponse(StatusCode.OK, "회원 가입", user));
 	}
 
 	//회원 정보 수정
 	@PatchMapping("/users/{UserID}")
-	public ResponseEntity<?> update(@Valid @RequestBody UserRequest request) throws Exception {
+	public ResponseEntity<?> update(@PathVariable("UserID") Long userid, final UserRequestDTO request) throws Exception {
 
-		//임시
-		UserData user = service.insert(request).getData();
+		UserResponseDTO user = service.update(userid, request);
 
 		return ResponseEntity.ok().body(new UserResponse(StatusCode.OK, "회원 정보 수정", user));
+	}
+
+	//회원 삭제
+	@DeleteMapping("/users/{UserID}")
+	public ResponseEntity<?> delete(@PathVariable("UserID") String userid) throws Exception {
+
+		boolean user = service.delete(userid);
+
+		return ResponseEntity.ok().build();
 	}
 }

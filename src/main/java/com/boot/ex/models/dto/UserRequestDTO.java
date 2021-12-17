@@ -1,14 +1,13 @@
-package com.boot.ex.models.requests;
+package com.boot.ex.models.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Getter @Setter
-public class UserRequest {
+public class UserRequestDTO {
 
     /*
         NotNull, NotEmpty, NotBlank의 차이점

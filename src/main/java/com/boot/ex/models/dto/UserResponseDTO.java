@@ -1,10 +1,10 @@
-package com.boot.ex.models.data;
+package com.boot.ex.models.dto;
 
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class UserData {
+public class UserResponseDTO {
 
     private Long aid;
     private String userid;
@@ -12,7 +12,7 @@ public class UserData {
     private String phone;
 
     @Builder
-    public UserData(Long aid, String userid, String name, String phone) {
+    public UserResponseDTO(Long aid, String userid, String name, String phone) {
         this.aid = aid;
         this.userid = userid;
         this.name = name;

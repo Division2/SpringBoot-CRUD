@@ -1,6 +1,6 @@
 package com.boot.ex.models.entities;
 
-import com.boot.ex.models.data.UserData;
+import com.boot.ex.models.dto.UserResponseDTO;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
 
 @Getter
 //생성자 접근 제한을 Protected 레벨로 설정
@@ -43,8 +42,8 @@ public class User extends BaseEntity {
 
     //Entity -> DTO Class
     @Override
-    public UserData getData() {
-        return UserData.builder()
+    public UserResponseDTO getData() {
+        return UserResponseDTO.builder()
                 .aid(getAid())
                 .userid(getUserid())
                 .name(getName())
