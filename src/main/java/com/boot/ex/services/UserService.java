@@ -26,11 +26,18 @@ public class UserService {
 	@Transactional(readOnly = true)
 	public List<UserResponseDTO> findAll() throws Exception {
 
-		List<UserResponseDTO> dto = new ArrayList<>();
-		for(int i=0; i<repository.findAll().size(); i++){
-			dto.add(repository.findAll().get(i).getData());
+		List<User> users = repository.findAll();
+		List<UserResponseDTO> userInfo = new ArrayList<>();
+
+		if (users.isEmpty()) {
+			throw new ResourceNotFoundException("리소스를 찾을 수 없습니다.");
 		}
-		return dto;
+
+		for (User user: users) {
+			userInfo.add(user.getData());
+		}
+
+		return userInfo;
 	}
 
 	//회원 ID 조회
@@ -80,16 +87,18 @@ public class UserService {
 			User user2 = user.get();
 			user2.setDeleted(true);
 		}
+		else {
+			throw new ResourceNotFoundException("요청한 리소스를 찾을 수 없습니다.");
+		}
 		return user.get().getData();
 	}
 
 	private User save(UserRequestDTO request) {
-		User result = repository.save(User.builder()
+		return repository.save(User.builder()
 				.userid(request.getUserid())
 				.password(passwordEncoder.encode(request.getPassword()))
 				.name(request.getName())
 				.phone(request.getPhone())
 				.build());
-		return result;
 	}
 }

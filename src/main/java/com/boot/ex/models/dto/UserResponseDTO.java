@@ -6,10 +6,10 @@ import lombok.Getter;
 @Getter
 public class UserResponseDTO {
 
-    private Long aid;
-    private String userid;
-    private String name;
-    private String phone;
+    private final Long aid;
+    private final String userid;
+    private final String name;
+    private final String phone;
 
     @Builder
     public UserResponseDTO(Long aid, String userid, String name, String phone) {
