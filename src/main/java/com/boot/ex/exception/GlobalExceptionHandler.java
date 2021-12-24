@@ -1,9 +1,5 @@
 package com.boot.ex.exception;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import com.boot.ex.models.responses.ErrorResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,6 +12,13 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import com.boot.ex.exception.CustomException.ResourceNotFoundException;
+import com.boot.ex.exception.CustomException.AlreadyExistException;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
@@ -33,8 +36,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     /*
         클라이언트에서 요청한 데이터의 리소스가 이미 존재하는 경우 작업을 실행하지 않을 때 Handling
      */
-    @ExceptionHandler(AleadyExistException.class)
-    public ResponseEntity<?> alearyExistException(AleadyExistException exception) {
+    @ExceptionHandler(AlreadyExistException.class)
+    public ResponseEntity<?> alearyExistException(AlreadyExistException exception) {
         ErrorResponse response = new ErrorResponse(StatusCode.NOT_FOUND, exception.getMessage(), format.format(new Date()));
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }

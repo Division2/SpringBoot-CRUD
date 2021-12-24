@@ -1,7 +1,7 @@
 package com.boot.ex.services;
 
-import com.boot.ex.exception.AleadyExistException;
-import com.boot.ex.exception.ResourceNotFoundException;
+import com.boot.ex.exception.CustomException.AlreadyExistException;
+import com.boot.ex.exception.CustomException.ResourceNotFoundException;
 import com.boot.ex.models.dto.UserResponseDTO;
 import com.boot.ex.models.entities.User;
 import com.boot.ex.models.dto.UserRequestDTO;
@@ -33,7 +33,7 @@ public class UserService {
 			throw new ResourceNotFoundException("리소스를 찾을 수 없습니다.");
 		}
 
-		for (User user: users) {
+		for (User user : users) {
 			userInfo.add(user.getData());
 		}
 
@@ -53,7 +53,7 @@ public class UserService {
 		Optional<User> user = repository.findByUserid(request.getUserid());
 
 		if (user.isPresent()) {
-			throw new AleadyExistException("이미 등록된 사용자입니다.");
+			throw new AlreadyExistException("이미 등록된 사용자입니다.");
 		}
 
 		return save(request).getData();
