@@ -48,8 +48,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         BindingResult bindingResult = exception.getBindingResult();
         FieldError fieldError = bindingResult.getFieldError();
+        String fieldMessage = "NPE";
 
-        ErrorResponse response = new ErrorResponse(StatusCode.BAD_REQUEST, fieldError.getDefaultMessage(), format.format(new Date()));
+        if (fieldError != null) {
+            fieldMessage = fieldError.getDefaultMessage();
+        }
+
+        ErrorResponse response = new ErrorResponse(StatusCode.BAD_REQUEST, fieldMessage, format.format(new Date()));
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
