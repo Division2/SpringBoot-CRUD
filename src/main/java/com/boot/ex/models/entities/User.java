@@ -15,7 +15,6 @@ import javax.persistence.*;
 @Entity
 //User Entity의 매핑 테이블 명 account로 설정
 @Table(name = "account")
-//Object Mapping 자동화를 위해 Serializable implements
 public class User extends BaseEntity {
 
     @Id

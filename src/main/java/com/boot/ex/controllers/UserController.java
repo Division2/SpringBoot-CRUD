@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import com.boot.ex.services.UserService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,6 +19,15 @@ import javax.validation.Valid;
 public class UserController {
 
 	private final UserService service;
+
+	//전체 회원 조회
+	@GetMapping("/users")
+	public ResponseEntity<?> allUsers() throws Exception {
+
+		List<UserResponseDTO> users = service.findAll();
+
+		return ResponseEntity.ok().body(new UserResponse(StatusCode.OK, "전체 회원 조회", users));
+	}
 
 	//회원 ID 조회
 	@GetMapping("/users/{UserID}")

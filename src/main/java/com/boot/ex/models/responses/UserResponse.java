@@ -1,10 +1,8 @@
 package com.boot.ex.models.responses;
 
-import com.boot.ex.models.dto.UserResponseDTO;
+public class UserResponse<T> extends CommonResponse<T> {
 
-public class UserResponse extends CommonResponse<UserResponseDTO> {
-
-    public UserResponse(int status, String message, UserResponseDTO data) {
+    public UserResponse(int status, String message, T data) {
         super(status, message, data);
     }
 }

@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import com.boot.ex.repositories.UserRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -19,6 +21,17 @@ import java.util.Optional;
 public class UserService {
 	private final PasswordEncoder passwordEncoder;
 	private final UserRepository repository;
+
+	//전체 회원 조회
+	@Transactional(readOnly = true)
+	public List<UserResponseDTO> findAll() throws Exception {
+
+		List<UserResponseDTO> dto = new ArrayList<>();
+		for(int i=0; i<repository.findAll().size(); i++){
+			dto.add(repository.findAll().get(i).getData());
+		}
+		return dto;
+	}
 
 	//회원 ID 조회
 	@Transactional(readOnly = true)
